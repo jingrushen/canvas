@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+.wrapper {
+    width: 800px;
+    text-align: center;
+}		
+p * {
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.wrapper div {
+    position: relative;
+    box-shadow: 0 0 0 1px hsl(0, 0%, 80%);
+    background: hsl(0, 0%, 95%);
+    width: 800px;
+    height: 600px;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
