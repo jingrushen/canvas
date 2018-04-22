@@ -1,4 +1,3 @@
 content is change!!
 second change.
-this is change in dev
-this is change in master
+this is change
