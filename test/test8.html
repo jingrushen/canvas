@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+/*		var A = (function () {
+			var name = 'abby';
+			function callName () {
+				console.log(name);
+			}
+			return callName();
+		}())
+
+*/
+	/*	var A = function () {
+			var name = 'bar' ;
+			var B = {
+				color: ['red', 'blue'],
+				init: function () {
+					var that = this;
+					console.log(name);
+					console.log(this);
+					console.log(that);
+					console.log(A.color);
+				},
+				test: (function () {
+					console.log(1);
+				}())
+			}
+			return B.init();
+		}
+		A();
+*/
+	/*	function A(name) {
+			this.name = name;
+			console.log(this);
+			function B() {
+				console.log(this.name);
+				console.log(this);
+			}
+			return B();
+		}
+		var a = new A('qwq');*/
+
+		/*function A() {
+			this.name = 'abc';
+			console.log(this);
+			return null;
+		}
+		var a = new A();
+		function B() {
+			console.log(this.name);
+		}*/
+
+		/*var A = function (name) {
+			var age = 18;
+			var obj = {
+				name: name,
+				init: function () {
+					console.log(this.color);
+					console.log(age);
+				},
+				color: ['red'],
+				test: function () {
+					console.log(this);
+				}
+			}
+			return obj.init();
+		}
+
+		A('abby');*/
+
+		/*var A = (function (){
+			var name = 'abby',
+				age = 18,
+				sex = 'female';
+
+			var init = function () {
+				console.log(name, age, sex);
+			}
+			var test = function () {
+				console.log('haha');
+			}
+			return function() {
+				init();
+				test();
+			}
+		}())*/
+
+
+		document.onmousemove = function (e) {
+			console.log(e.clientX, e.clientY);
+			document.addEventListener('mouseup', function (e) {
+				console.log('up');
+				document.onmousemove = null;
+			})
+		}
+
+	</script>
+</body>
+</html>
