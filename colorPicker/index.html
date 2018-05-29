@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	 	* {
+			margin: 0;
+			padding: 0;
+	 	}
+	 	body {
+	 		font-family: "proxima-nova-soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+	 		user-select: none;
+	 	}
+	 	input {
+			border: none;
+			outline: none;
+	 	}
+		.colorpicker {
+			margin-top: 50px;
+			width: 1170px;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		.colorpicker:after {
+			content: '';
+			display: block;
+			height: 0;
+			font-size: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		.main-panel {
+			float: left;
+		}
+		.main-panel div {
+			float: left;
+			position: relative;
+		}
+		.input-panel {
+			float: left;
+			border: 1px solid #ddd;
+			box-sizing: border-box;
+			padding: 10px 20px;
+			color: #c3c3c3;
+			font-weight: 600;
+			font-size: 12px;
+		}
+		#dragColor {
+			margin: 0 20px;
+		}
+		canvas {
+			border-radius: 5px;
+		}
+		.operate-data {
+			margin-top: 20px;
+			padding: 0 20px;
+			border-bottom: 1px solid #eee;
+		}
+		.operate-data p {
+
+		}
+		.operate-data input {
+			font-weight: 700;
+			border-radius: 3px;
+			width: 60px;
+			transition: all 0.25s ease-in 0;
+			padding: 5px 5px;
+			margin-left: 10px;
+			border: 1px solid transparent;
+			color: #1e1d1d;
+		}
+		.operate-data input:focus {
+			border: 1px solid #eee;
+		}
+		
+		.show-data {
+			padding: 5px 20px;
+		}
+		.show-data p {
+			color: #4e4e4e;
+			font-weight: 700;
+			font-size: 15px;
+			margin-top: 10px;
+		}
+		.handle {
+			width: 14px;
+			height: 14px;
+			border-radius: 100%;
+			background-color: transparent;
+			border: 3px solid #000;
+			position: absolute;
+			top: 0;
+			left: 0;
+			cursor: pointer;
+			margin-top: -10px;
+		}
+		#main-handle {
+			margin-left: -10px;
+			left: 460px;
+		}
+		#drag-handle {
+			margin-left: 16px;
+		}
+	</style>
+</head>
+<body>
+<div class="colorpicker" data-id='1'>
+	<div class="main-panel">
+		<div class="main">
+			<canvas width="460" height="400" id="selectColor">You browser is not support canvas</canvas>
+			<span id="main-handle" class="handle"></span>
+		</div>
+		<div class="bar">
+			<canvas width="12" height="400" id="dragColor"></canvas>
+			<span id="drag-handle" class="handle"></span>
+		</div>
+	</div>
+	<div class="input-panel">
+		<canvas width="160" height="90" id="showColor"></canvas>
+		<div class="operate-data">
+			<p><span>#</span><input type="text" data-id='#' maxlength="6"></p>
+			<p><span>R</span><input type="text" data-id='R' class="rgbInput" maxlength="3"></p>
+			<p><span>G</span><input type="text" data-id='G' class="rgbInput" maxlength="3"></p>
+			<p><span>B</span><input type="text" data-id='B' class="rgbInput" maxlength="3"></p>
+			<p><span>H</span><input type="text" data-id='H' class="hslInput" maxlength="3"></p>
+			<p><span>S</span><input type="text" data-id='S' class="hslInput"></p>
+			<p><span>L</span><input type="text" data-id='L' class="hslInput"></p>
+			<p><span>V</span><input type="text" data-id='V' class="hslInput"></p>
+		</div>
+		<div class="show-data">
+			<p data-type='rgb'>RGB</p>
+			<p data-type='hsl'>HSL</p>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" src="js/main.js"></script>		
+</body>
+</html>

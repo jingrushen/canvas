@@ -21,7 +21,7 @@ var Dot = function ( {x, y, r} = {} ) {
 Dot.prototype = {
 	init: function () {
 		var ctx = this.ctx;
-		ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+		ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
 		ctx.fill();
