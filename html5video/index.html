@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+<body>
+    <div class="mediaPlayer">
+        <div class="video" >
+            <video id="player" width="600" height="450"> Video player not available...</video>
+        </div>
+        <div class="controls">
+            <div class="play-btn">
+                <span id="video-play-turn" class="glyphicon glyphicon-play"></span>
+                <span id="video-replay" class="glyphicon glyphicon-stop"></span>
+                <!--
+                <input type="button" value="play" name="" id="video-play-turn">
+                <input type="button" value="replay" id="video-replay">
+                  -->
+            </div>
+            <div class="time-progress">
+                <div id="video-progress">
+                    <div id="progress"></div>
+                    <span id="handle"></span>
+                </div>
+                <div id="time">
+                    <span id="video-curtime">00:00:00</span>
+                    <span id="video-duration">00:00:00</span>
+                </div>
+            </div>
+            <div class="voice-turn"> 
+            <!--         
+                <input type="button" value="clos" id="video-voice-turn">
+                  -->  
+                <span class="glyphicon glyphicon-volume-down" id="video-voice-turn"></span>
+                <div id="video-voice">
+                    <div id="progress"></div>
+                    <span id="handle"></span>
+                </div>
+            </div>
+            <div class="fullscreen-btn">
+                <span class="glyphicon glyphicon-resize-full" id="video-fullScreen"></span>
+                <!--  
+                <input type="button" value="expand" id="video-fullScreen">
+                -->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/slideProgress.js"></script>
+    <script type="text/javascript" src="js/videoPlayer.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
+
+</body>
+</html>
