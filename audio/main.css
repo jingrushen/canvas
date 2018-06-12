@@ -1,0 +1,62 @@
+/* .bg-canvas {
+  filter: blur(40px);
+} */
+.con {
+  width: 740px;
+  height: 740px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -370px;
+  margin-top: -370px;
+}
+.container {
+  transition: all 1s ease;
+  /* animation: rotate 50s linear infinite */
+}
+.container2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #dfdfdf;
+  align-items: center;
+}
+.op {
+  margin: 50px 0;
+  position: relative;
+}
+.operate:hover {
+  opacity: 0.8;
+}
+.song-name {
+  font-size: 32px;
+}
+.curr-time {
+  font-size: 24px;
+}
+.operate {
+  width: 0;
+  height: 0px;
+  border-width: 17px 0 17px 26px;
+  border-color: transparent #dfdfdf;
+  border-style: solid;
+}
+.operate.active {
+  width: 14px;
+  height: 34px;
+  border-width: 0 8px;
+  border-color: #dfdfdf;
+  border-style: solid;
+  transition: all .2s;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+.paused {
+  animation-play-state: paused
+}
