@@ -21,7 +21,7 @@ var Tick = {
     this.r = (this.width - this.padding * 2) / 3
     this.ctx.lineWidth = 1
     this.ctx.beginPath()
-    this.ctx.strokeStyle = '#ab8674'
+    this.ctx.strokeStyle = '#722423'
     this.ctx.arc(this.width / 2, this.height / 2, this.r, 0, 2 * Math.PI)
     this.ctx.stroke()
     this.ctx.closePath()
