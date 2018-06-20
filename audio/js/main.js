@@ -6,11 +6,13 @@ var Tick = {
   maxRadius: 350,
   minRadius: 250,
   firstRender: true,
-  init: function () {
+  init () {
     this.canvas = document.querySelector('.canvas')
     this.ctx = this.canvas.getContext('2d')
     this.width = this.canvas.width
     this.height = this.canvas.height
+    this.lineCanvas = document.querySelector('.linecanvas')
+    this.lineCtx = this.lineCanvas.getContext('2d');
     this.rx = this.width / 2
     this.ry = this.height / 2
     this.radius = this.width / 3
@@ -18,18 +20,19 @@ var Tick = {
     this.cacheCtx = this.cacheCanvas.getContext('2d');
     this.cacheCanvas.width = this.width;
     this.cacheCanvas.height = this.height;
+    this.cacheCtx.lineWidth = 2
     this.reset()
   },
-  renderInnerCircle: function () {
+  renderInnerCircle () {
     this.r = (this.width - this.padding * 2) / 3
-    this.ctx.lineWidth = 1
-    this.ctx.beginPath()
-    this.ctx.strokeStyle = '#722423'
-    this.ctx.arc(this.width / 2, this.height / 2, this.r, 0, 2 * Math.PI)
-    this.ctx.stroke()
-    this.ctx.closePath()
+    this.lineCtx.lineWidth = 1
+    this.lineCtx.beginPath()
+    this.lineCtx.strokeStyle = '#722423'
+    this.lineCtx.arc(this.width / 2, this.height / 2, this.r, 0, 2 * Math.PI)
+    this.lineCtx.stroke()
+    this.lineCtx.closePath()
   },
-  renderTick: function () {
+  renderTick () {
     this.ctx.drawImage(this.cacheCanvas, 0, 0, this.width, this.height);
   },
   renderTime (time) {
@@ -41,6 +44,7 @@ var Tick = {
     this.ctx.fill()
     this.ctx.closePath()
     this.ctx.beginPath()
+    this.ctx.strokeStyle = '#722423';
     this.ctx.lineWidth = 5
     this.ctx.arc(this.rx, this.ry, this.r, 0, a)
     this.ctx.stroke()
@@ -62,8 +66,10 @@ var Tick = {
       angle += Math.PI / 180
       if (scale > 1) {
         this.canvas.style.transform = `scale(${scale})`
+        this.lineCanvas.style.transform = `scale(${scale})`
       } else {
         this.canvas.style.transform = `scale(1)`
+        this.lineCanvas.style.transform = `scale(1)`
       }
     }
     return ticks
@@ -78,7 +84,6 @@ var Tick = {
       this.firstRender = false;
     }
     this.clear()
-    this.renderInnerCircle()
     this.cache()
     this.renderTick()
     this.renderTime(this.Time);
@@ -92,24 +97,38 @@ var Tick = {
   },
   cache () {
     this.cacheCtx.clearRect(0, 0, this.width, this.height);
-    this.cacheCtx.save();
     let ticks = this.getTicksPostion()
     for (let i = 0, len = ticks.length; i < len; i++) {
       this.cacheCtx.beginPath()
       let gradient = this.cacheCtx.createLinearGradient(ticks[i].x1, ticks[i].y1, ticks[i].x2, ticks[i].y2)
-      gradient.addColorStop(1, '#722423')
-      gradient.addColorStop(0.4, '#ab8674')
       gradient.addColorStop(0, '#F5F5F5')
+      gradient.addColorStop(0.4, '#ab8674')
+      gradient.addColorStop(1, '#722423')
       this.cacheCtx.strokeStyle = gradient
-      this.cacheCtx.lineWidth = 2
       this.cacheCtx.moveTo(ticks[i].x1, ticks[i].y1)
       this.cacheCtx.lineTo(ticks[i].x2, ticks[i].y2)
       this.cacheCtx.stroke()
       this.cacheCtx.closePath()
     }
-    this.cacheCtx.restore();
   }
 }
+var SONGS = [
+  {
+    artist: 'Michael',
+    name: 'Stone Cold Funk',
+    url: 'http://m10.music.126.net/20180615111927/1f7d0d15914ddf59b1f3c44fe3b8822a/ymusic/ed49/d613/d738/86559a80228670dcc0c89a3997fd836a.mp3'
+  },
+  {
+    artist: 'Audio Machine',
+    name: 'Breath and Life',
+    url: 'http://m10.music.126.net/20180615011439/fe628bf2199d8203641c5a7d4e501408/ymusic/18ba/7e9f/69fd/75f095ea5e4031ec40a8f7b16e39ba81.mp3'
+  },
+  {
+    artist: 'GRANiDELiA',
+    name: '极乐净土',
+    url: 'http://m10.music.126.net/20180615110735/814dc0559e55fbd37806b7b387cd65fd/ymusic/db40/34e5/08d0/2b87dad647d73fe4250167be43baf514.mp3'
+  }
+]
 var MusicPlayer = {
   i: 0,
   currentSongIndex: 0,
@@ -117,23 +136,7 @@ var MusicPlayer = {
   drawcaf: null,
   firstStart: true,
   hasGain: true,
-  songs: [
-    {
-      artist: 'Michael',
-      name: 'Stone Cold Funk',
-      url: 'http://m10.music.126.net/20180615111927/1f7d0d15914ddf59b1f3c44fe3b8822a/ymusic/ed49/d613/d738/86559a80228670dcc0c89a3997fd836a.mp3'
-    },
-    {
-      artist: 'Audio Machine',
-      name: 'Breath and Life',
-      url: 'http://m10.music.126.net/20180615011439/fe628bf2199d8203641c5a7d4e501408/ymusic/18ba/7e9f/69fd/75f095ea5e4031ec40a8f7b16e39ba81.mp3'
-    },
-    {
-      artist: 'GRANiDELiA',
-      name: '极乐净土',
-      url: 'http://m10.music.126.net/20180615110735/814dc0559e55fbd37806b7b387cd65fd/ymusic/db40/34e5/08d0/2b87dad647d73fe4250167be43baf514.mp3'
-    }
-  ],
+  FADE_TIME: 10,
   initFlag: {
     disabled: false,    
     tip: document.querySelector('.tip-show'),
@@ -154,18 +157,14 @@ var MusicPlayer = {
       }, 1000);
     }
   },
-  init: function () {
+  init () {
     this.initFlag.show()
     let _t = this;
     window.AudioContext = window.AudioContext || window.webkitAudioContext
-    // this.listener()
     this.ctx = new AudioContext()
     this.ctx.suspend && this.ctx.suspend();
     this.first = true;
-    this.javascriptNode = this.ctx.createScriptProcessor(2048, 1, 1);
-    this.javascriptNode.connect(this.ctx.destination);
     this.analyser = this.ctx.createAnalyser();
-    this.analyser.connect(this.javascriptNode);
     this.analyser.smoothingTimeConstant = 0.6;
     this.analyser.fftSize = 2048
     this.source = this.ctx.createBufferSource();
@@ -173,12 +172,7 @@ var MusicPlayer = {
     this.gainNode = this.ctx.createGain();
     this.source.connect(this.gainNode);
     this.gainNode.connect(this.analyser);
-    this.gainNode.connect(this.ctx.destination);
-    // this.bufferLength = this.analyser.fftSize
-    // this.play()
-    // Tick.currData = new Uint8Array(this.bufferLength)
-    // Tick.currData = new Float32Array(this.bufferLength)
-    this.initData();
+    this.analyser.connect(this.ctx.destination);
     if (this.firstStart) {
       this.event()
       Tick.init()
@@ -187,16 +181,13 @@ var MusicPlayer = {
     }
   },
   initData() {
-    let _t = this;
-    this.javascriptNode.onaudioprocess = function () {
-      Tick.currData = new Uint8Array(_t.analyser.frequencyBinCount);
-      _t.analyser.getByteFrequencyData(Tick.currData);
-    }
+    Tick.currData = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteFrequencyData(Tick.currData);
   },
   loadMusic (index) {
     let _t = this;
     let xhr = new XMLHttpRequest();
-    let song = this.songs[index];
+    let song = SONGS[index];
     xhr.open('GET', song.url, true);
     xhr.responseType = 'arraybuffer';
     this.ctx.source = null;
@@ -223,7 +214,7 @@ var MusicPlayer = {
     }
     this.draw()
   },
-  pause () {
+  pause() {
     this.ctx.suspend();
     window.cancelAnimationFrame(this.drawcaf);
   },
@@ -249,7 +240,7 @@ var MusicPlayer = {
   },
   next () {
     this.i++;
-    if (this.i >= this.songs.length) {
+    if (this.i >= SONGS.length) {
       this.i = 0
     }
     this.currentSongIndex = this.i;
@@ -257,7 +248,7 @@ var MusicPlayer = {
   prev (){
     this.i--;
     if (this.i <= -1) {
-      this.i = this.songs.length - 1;
+      this.i = SONGS.length - 1;
     }
     this.currentSongIndex = this.i;
   },
@@ -270,21 +261,8 @@ var MusicPlayer = {
     this.source = null;
     this.init();
   },
-  // listener () {
-  //   this.audio.addEventListener('timeupdate', (function (e) {
-  //     let time = e.target.currentTime
-  //     Control.update(time)
-  //     Tick.Time = time
-  //   }))
-  //   this.audio.addEventListener('canplay', function () {
-  //     Tick.duration = this.duration
-  //   }),
-  //   this.audio.addEventListener('ended', function () {
-  //     Tick.reset()
-  //     Control.reset()
-  //   })
-  // },
   draw () {
+    this.initData();
     Tick.Time = this.ctx.currentTime;
     Control.update(Tick.Time);
     Tick.render();
@@ -293,8 +271,8 @@ var MusicPlayer = {
     })
   },
   initInfo () {
-    Control.artistName.innerHTML = this.songs[this.currentSongIndex].artist;
-    Control.songName.innerHTML = this.songs[this.currentSongIndex].name;
+    Control.artistName.innerHTML = SONGS[this.currentSongIndex].artist;
+    Control.songName.innerHTML = SONGS[this.currentSongIndex].name;
     $(Control.songList).find('svg').removeClass('fa-spin');
     $(Control.songList).find('li').eq(this.currentSongIndex).addClass('playing-active').siblings().removeClass('playing-active')
     $(Control.songList).find('li').eq(this.currentSongIndex).find('svg').addClass('fa-spin');
@@ -310,7 +288,7 @@ var Control = {
   prev: document.querySelector('.prev'),
   songList: document.querySelector('.song-list'),
   volume: document.querySelector('.volume'),
-  init: function () {
+  init () {
     let _t = this
     this.op.addEventListener('click', function () {
       if (MusicPlayer.initFlag.disabled) {
@@ -335,7 +313,7 @@ var Control = {
       MusicPlayer.switchGain()
     })
   },
-  toggleClass: function (classname) {
+  toggleClass (classname) {
     if (hasClass(this.op, classname)) {
       this.op.classList.remove(classname)
       MusicPlayer.pause()
@@ -344,26 +322,26 @@ var Control = {
       MusicPlayer.play()
     }
   },
-  update: function(time) {
+  update(time) {
     this.currTime.innerHTML = formatTime(time)
   },
-  reset: function () {
+  reset () {
     this.currTime.innerHTML = '00:00'
     this.op.classList.remove('active')
   },
-  nextSong: function () {
+  nextSong () {
     MusicPlayer.next();
     MusicPlayer.reset();
     Tick.reset();
     this.reset();
   },
-  prevSong: function () {
+  prevSong () {
     MusicPlayer.prev();
     MusicPlayer.reset();
     Tick.reset();
     this.reset();
   },
-  shiftSong: function (i) {
+  shiftSong (i) {
     MusicPlayer.selectSong(i)
     MusicPlayer.reset();
     Tick.reset();
@@ -372,7 +350,7 @@ var Control = {
 }
 var BackGround = {
   bg: document.querySelector('.bg-canvas'),
-  init: function () {
+  init () {
     this.width = window.innerWidth,
     this.height = window.innerHeight,
     this.ctx = this.bg.getContext('2d'),

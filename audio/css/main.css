@@ -2,8 +2,9 @@ body, html, ul {
   margin: 0;
   padding: 0;
 }
-.bg-canvas {
+.bg-canvas, .linecanvas {
   position: absolute;
+  top: 0;left: 0;
 }
 .con {
   width: 740px;

@@ -2,56 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link href="main.css" rel="stylesheet" type="text/css">
+  <style>
+    
+    .btn {
+      text-transform: uppercase;
+      border: none;
+      background: blue;
+      text-align: center;
+      font-size: 20px;
+      color: white;
+      padding: 25px 80px;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      margin: 15px 30px;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .btn:before {
+      background: #e96a6a;
+      color: #a233a2;
+      content: 'error!';
+      line-height: 70px;
+      text-transform: uppercase;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      transform-origin: 0% 0%;
+      transform: rotateX(-90deg);
+    }
+
+  .btn:hover {
+    transform-origin: 100% 0%;
+    transform: rotateX(90deg) translateY(-100%);
+  }
+/*  a:hover:before, a:hover:after {
+    opacity: 1;
+  }
+  a:hover:before {
+    transform: translateX(0px);
+  }
+  a:hover:after {
+    transform: translateX(0px);
+  }
+  a:before {
+    display: inline-block;
+    content: '[';
+    margin-right: 10px;
+    transform: translateX(20px);
+    opacity: 0;
+    transition: all .3s;
+  }
+  a:after {
+    display: inline-block;
+    content: ']';
+    margin-left: 10px;
+    transform: translateX(-20px);
+    opacity: 0;
+    transition: all .3s;
+  }*/
+  a {
+    display: inline-block;
+    width: 200px;
+    perspective: 800px;
+    margin-top: 100px;
+
+  }/*
+  span {
+    width: 100%;
+    height: 100%;
+    padding: 10px 14px;
+    background: #e35041;
+    position: relative;
+    color: white;
+    transition: all .3s;
+    transform-style: preserve-3d;
+    display: inline-block;
+  }
+  span:before {
+    display: inline-block;
+    content: attr(data-hover);
+    background: #b53a2d;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 100%;
+    top: 0;
+    transform-origin: 0% 0%;
+    transform: rotateY(90deg);
+  }
+  a:hover span  {
+    transform-origin: 0% 0%;
+    transform: rotateY(-90deg) translateX(-100%);
+    background: #b53a2d;
+  }
+  a:hover span:before {
+    background: #e35041;
+  }*/
+  span {
+    width: 100%;
+    height: 100%;
+    padding: 10px 14px;
+    background: #e35041;
+    position: relative;
+    color: white;
+    transition: all .3s;
+    transform-style: preserve-3d;
+    display: inline-block;
+  }
+  span:before {
+    display: inline-block;
+    content: attr(data-hover);
+    background: #b53a2d;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    transform-origin: 0% 0%;
+    transform: rotateX(270deg);
+    transition: all .3s;
+  }
+  a:hover span:before {
+    transform: rotateX(10deg);
+  }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="audio-show">
-      <canvas class="bg-canvas"></canvas>
-      <div class="audio con">
-        <canvas width="740" height="740" class="canvas"></canvas>
-      </div>
-      <div class="desc con">
-        <div class="song-name"></div>
-        <div class="artist-name"></div>
-        <div class="operate op">
-          <div class="prev"></div>
-          <div class="next"></div>
-          <div class="play-pause"></div>
-          <div class="volume">
-            <i class="fas fa-volume-up"></i>
-            <i class="fas fa-volume-off hide"></i>
-          </div>
-        </div>
-        <div class="curr-time">00:00</div>
-      </div>
-    </div>
-    <div class="tip-show">
-    </div>
-    <ul class="song-list">
-      <li class="song-item">
-        <i class="fas fa-music"></i>
-        <span>Stone cold funk</span>
-      </li>
-      <li class="song-item">
-        <i class="fas fa-music"></i>
-        <span>Breath and Life</span>
-      </li>
-      <li class="song-item">
-        <i class="fas fa-music"></i>
-        <span>极乐净土</span>
-      </li>
-    </ul>
-  </div>
-  <script src="jquery.js"></script>
-  <script>
-    FontAwesomeConfig = { searchPseudoElements: true };
-  </script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
-    crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+  <button class="btn">button</button>
+  <!-- <a href="">Wafture</a> -->
+<!--   <a href="">
+    <span data-hover='rajfaf'>
+      Ratbajfkal
+    </span>
+  </a> -->
+  <a href="">
+    <span data-hover='rajfaf'>
+      hellow
+    </span>
+  </a>
 </body>
 </html>

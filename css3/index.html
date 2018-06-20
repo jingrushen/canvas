@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+  <link rel="stylesheet" href="./index_files/animate.css">
+  <link rel="stylesheet" href="./index_files/re-animate.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		*,
+		*:before,
+		*:after:; {
+			box-sizing: border-box;
+		}
+		div {
+			box-sizing: border-box;
+		}
+		body {
+			padding-top: 50px;
+		}
+		a {
+			color: #fff;
+			text-decoration: none;
+		}
+		.container {
+			min-width: 960px;
+			margin: 0 auto;
+		}
+		.contanier > div {
+			display: flex;
+			justify-content: space-around;
+			margin-bottom: 50px;
+		}
+		.desc {
+			position: absolute;
+			background: #2c3f52;
+			color: #ed4e6e;
+			padding: 20px;
+		}
+		.desc a {
+			background: #ed4e6e;
+			border-radius: 2px;
+			display: inline-block;
+			padding: 5px 10px;
+			text-align: center;
+		}
+		.demo1, .demo2, .demo3 {
+			display: inline-block;
+			width: 400px;
+			position: relative;
+		}
+		.demo1 img, .demo2 img, .demo3 img {
+			max-width: 100%;
+			display: block;
+			position: relative;
+			transition: all .3s;
+		}
+		/*------------demo1-------------*/
+		.demo1 {
+			overflow: hidden;
+		}
+		.demo1 .desc {
+			height: 100px;
+			width: 100%;
+			opacity: 0;
+			left: 0;
+			bottom: 0;
+			transform: translateY(100%);
+			transition: opacity .1s .3s, transform .4s;
+		}
+		.demo1 .desc a {
+			float: right;
+		}
+		.demo1:hover img {
+			transform: translateY(-15%);
+		}
+		.demo1:hover .desc {
+			transform: translateY(0);
+			opacity: 1;
+			transition: opacity .1s, transform .4s;
+		}
+
+
+		/*------------demo2-------------*/
+		.demo2 .desc {
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			transition: transform .3s, opacity .3s;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-around;
+			left: 0;
+			top: 0;
+		}
+		.demo2:hover .desc {
+			transform: translate(15px, 15px);
+			opacity: 1;
+		}
+
+
+
+		/*------------demo3-------------*/
+		.demo3 {
+			transform-style: preserve-3d;
+			perspective: 1700px;
+			perspective-origin: 0 50%;
+		}
+		.demo3 .desc {
+			height: 100%;
+			width: 50%;
+			opacity: 0;
+			transform-origin: 0 0;
+			transform: rotateY(-90deg);
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			top: 0;
+			left: 0;
+			transition: transform .4s, opacity .1s .3s;
+		}
+		.demo3 > div {
+			overflow: hidden;
+		}
+		.demo3:hover img {
+			transform: translateX(25%);
+		}
+		.demo3:hover .desc {
+			transform: rotateY(0deg);
+			opacity: 1;
+			transition: transform .4s, opacity .1s;
+		}
+
+		/*-----------demo4----------------*/
+		.circle {
+			width: 15em;
+			height: 15em;
+			border-radius: 100%;
+			background: #fff;
+			position: relative;
+			overflow: hidden;
+			transform: translateZ(0);
+		}
+		.circle:after, .circle:before {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			content: '';
+			border-radius: 100%;
+			box-shadow: inset 10.6em 0 0 rgba(30, 140, 209, 0.2), inset 0 10.6em 0 rgba(30, 140, 209, 0.2), inset -10.6em 0 0 rgba(30, 140, 209, 0.2), inset 0 -10.6em 0 rgba(30, 140, 209, 0.2);
+			transition: box-shadow .3s;
+		}
+		.circle:after {
+			transform: rotate(45deg);
+		}
+		.circle:hover:before, .circle:hover:after {
+			box-shadow: inset 0.86em 0 0 rgba(255, 0, 0, 0.5), inset 0 0.86em 0 rgba(252, 150, 0, 0.5), inset -0.86em 0 0 rgba(0, 255, 0, 0.5), inset 0 -0.86em 0 rgba(0, 150, 255, 0.5);
+			transition: box-shadow .3s;
+		}
+
+		.demo5, .demo6 {
+			perspective: 1200px;
+		}
+		.rotate-up:before, .rotate-down:after {
+			content: attr(data);
+			background: #435a6b;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform-origin: 0 0;
+			transform: rotateX(-90deg);
+			cursor: pointer;
+			transition: all .5s;
+		}
+		/*-----------demo5----------------*/
+		.rotate-up, .rotate-down {
+			text-align: center;
+			line-height: 44px;
+			text-transform: uppercase;
+			color: #fff;
+			background: #749ebe;
+			padding: 0 10px;
+			transform-style: preserve-3d;
+			position: relative;
+			transform-origin: 0 0 ;
+			transition: all .5s;
+		}
+		.rotate-up:hover {
+			transform: rotateX(90deg) translateY(-15px);
+			background: #435a6b;
+		}
+		.rotate-up:hover:before {
+			background: #749ebe;
+		}
+
+		/*------------demo6-------------*/
+		.rotate-down {
+			transform-origin: 0 100%;
+		}
+		.rotate-down:after {
+			top: -100%;
+			transform-origin: 0 100%;
+			transform: rotateX(90deg);
+		}
+		.rotate-down:hover {
+			transform: rotateX(-90deg) translateY(15px);
+			background: #435a6b;
+		}
+		.rotate-down:hover:after {
+			background: #749ebe;
+		}
+
+
+		.demo7, .demo8 {
+			perspective: 800px;
+		}
+		/*----------demo7----------------*/
+		.rotate-left, .rotate-right {
+			text-align: center;
+			line-height: 44px;
+			text-transform: uppercase;
+			color: #fff;
+			background: #749ebe;
+			padding: 0 10px;
+			transition: all .5s;
+			position: relative;
+			transform-style: preserve-3d;
+			transform-origin: 50% 50% -60px;
+		}
+		.rotate-left:before, .rotate-right:after {
+			content: attr(data);
+			background: #435a6b;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+			transition: all .5s;
+			top: 0;
+			left: -100%;
+			transform-origin: 100% 0;
+			transform: rotateY(-90deg);
+		}
+		.rotate-left:hover, .rotate-right:hover {
+			transform: rotateY(90deg);
+			background: #435a6b;
+		}
+		.rotate-left:hover:before, .rotate-right:hover:after {
+			background: #749ebe;
+		}
+
+		/*-------------demo8-------------*/
+		.rotate-right:after {
+			left: 100%;
+			transform-origin: 0% 50%;
+			transform: rotateY(90deg);
+		}
+		.rotate-right:hover {
+			transform: rotateY(-90deg);
+		}
+		/*-------------demo9-------------*/
+		.demo9 {
+			perspective: 800px;
+		}
+		.rotate {
+			text-align: center;
+			line-height: 44px;
+			text-transform: uppercase;
+			color: #fff;
+			background: #749ebe;
+			padding: 0 10px;
+			transition: all .5s;
+			position: relative;
+			transform-style: preserve-3d;
+		}
+		.rotate:before {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			color: #fff;
+			background: #435a6b;
+			content: attr(data);
+			transform-origin: 0 0;
+			transform: rotateX(-90deg);
+			transition: all .75s;
+		}
+		.rotate:hover:before {
+			transform: rotateX(-350deg);
+		}
+
+		/*----------旋转卡片------------*/
+    .showcard {
+        margin: 0 auto;
+        width: 250px;
+        height: 350px;
+        position: relative;
+        perspective: 800px;
+    }
+    .card1 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transition: transform .3s linear 0s;
+        backface-visibility: hidden;
+    }
+    .front {
+        background: url('images/正面.jpg');     
+    }
+    .back {
+        background: url('images/反面.jpg');
+        transform: rotateY(-180deg);
+
+    }
+    .showcard:hover .front {
+        transform: rotateY(180deg);
+    }
+    .showcard:hover .back {
+        transform: rotateY(0deg);
+    }
+   	/*-----------------正方体旋转-------------*/
+    .stage {
+      perspective: 600px;
+      width: 300px;
+      height: 300px;
+      position: relative;
+	  }
+	  .square {
+	      transform-style: preserve-3d;
+	      width: 100%;
+	      height: 100%;
+	  }
+	  .surface {
+	      width: 100%;
+	      height: 100%;
+	      border: 2px solid pink;
+	      position: absolute;
+	      background-color: rgba(0, 0, 0, 0.5);
+	      box-sizing: border-box;
+
+	  }
+	  .surface:nth-child(1) {
+	      transform: translateZ(-150px);
+	  }
+	  .surface:nth-child(2) {
+	      transform: rotateX(90deg) translate3d(0, 150px ,0);
+	  }
+	  .surface:nth-child(3) {
+	      transform: rotateX(90deg) translate3d(0, 150px, 0);
+	  }
+	  .surface:nth-child(4) {
+	      transform: rotateY(90deg) translate3d(0, 0, 150px);
+	  }
+	  .surface:nth-child(5) {
+	      transform: rotateY(270deg) translate3d(0, 0, 150px);
+	  }
+	  .surface:nth-child(6) {
+	      transform: translateZ(150px);
+	  }     
+
+	  .square:hover {
+	      -webkit-animation: rotateSquare 10s linear 0s infinite;
+	      -o-animation: rotateSquare 10s linear 0s infinite;
+	      animation: rotateSquare 10s linear 0s infinite;
+	  }   
+
+	  @keyframes rotateSquare {
+	      form {
+	          transform: rotateY(0deg);
+	      }
+	      to {
+	          transform: rotateY(-360deg);
+	      }
+	  }
+
+	  /*--------------登陆界面---------------*/
+    html {
+        font-size: 62.5%;
+        font-family: 'Open Sans', 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    }
+
+    body {
+        font-size: 1.8em;
+        line-height: 3;
+        background-color: #eeeeee;
+    }
+
+    h3 {
+        font-size: 1.8em;
+        margin-bottom: 3rem;
+        line-height: 1.5;
+        font-weight: 800;
+    }
+
+    p {
+        margin-bottom: 1.5rem;
+    }
+
+    .site-container {
+        max-width: 320px;
+        margin: 10px auto;
+        padding-left: 0.6em;
+        padding-right: 0.6em;
+        padding-top: 3%;
+        padding-bottom: 3%;
+    }
+
+    @media screen and (min-width: 60.063em) {
+        .site-container {
+            max-width: 400px;
+        }
+    }
+
+    .card {
+        position: relative;
+        overflow: hidden;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.24), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+        border-radius: 2px;
+        padding: 1em 1.5em;
+    }
+
+    .form__wrapper {
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        margin-bottom: 1.6rem;
+        width: 100%;
+        vertical-align: top;
+    }
+
+    .form__wrapper__submit {
+        padding: 1.6rem 0;
+    }
+
+    .form__input {
+        display: block;
+        position: relative;
+        margin-top: 1em;
+        padding: 0.84em 0;
+        width: 100%;
+        box-sizing: border-box;
+        color: #444;
+        font-size: 1.6rem;
+        outline: 0;
+        border: none;
+        border-bottom: solid 1px #ddd;
+    }
+
+    .form__input:focus {
+        background-position: 0 0;
+        color: #444;
+    }
+
+    .form__label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 0;
+        width: 100%;
+        height: calc(99%);
+        text-align: left;
+        pointer-events: none;
+        color: #999;
+    }
+
+    .form__label__content {
+        position: absolute;
+    }
+
+    .form__filled {
+        width: 100%;
+        height: 2px;
+        background: #2196f3;
+        position: absolute;
+        bottom: 0;
+        display: none;
+        animation-duration: 0.3s;            
+    }
+    .form__input__focus~.form__label .form__label__content {   
+        top: -10px;
+        font-size: 0.7em;
+        font-weight: 600;  
+        animation-duration: 0.6s;
+    }
+
+    .btn {
+        width: 100%;
+        display: inline-block;
+        padding: 0.7em 1.5em;
+        border-radius: 2px;
+        background-color: #2196f3;
+        color: #fff;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 1.6rem;
+        box-shadow: 0 1px 3px 0 rgba(3, 30, 51, 0.24), 0 1px 2px 0 rgba(3, 30, 51, 0.12);
+        transition: all 0.2s ease;
+    }
+
+    .btn:focus,
+    .btn:hover {
+        background-color: #0d8aee;
+    }
+    .btn {
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-delay: 0.5s;
+    }
+	</style>
+</head>
+<body>
+	<div class="contanier">
+		<div class="first">
+			<div class="demo1">
+				<img src="images/1.png">
+				<div class="desc">
+					<h3>Camera</h3>
+					<span>by Shen Jingru</span>
+					<a href="">Take a look</a>
+				</div>
+			</div>
+			<div class="demo2">
+				<img src="images/1.png">
+				<div class="desc">
+					<h3>Camera</h3>
+					<span>by Shen Jingru</span>
+					<a href="">Take a look</a>
+				</div>
+			</div>
+			<div class="demo3">
+				<div>
+					<img src="images/1.png">
+				</div>
+				<div class="desc">
+					<h3>Camera</h3>
+					<span>by Shen Jingru</span>
+					<a href="">Take a look</a>
+				</div>
+			</div>
+		</div>
+		<div class="second">
+			<div class="circle">
+			</div>
+		</div>
+		<div class="third">
+			<div class="demo5"> 
+				<div class="rotate-up" data='shenjingru'>
+					shenjingru
+				</div>
+			</div>
+			<div class="demo6"> 
+				<div class="rotate-down" data='shenjingru'>
+					shenjingru
+				</div>
+			</div>
+			<div class="demo7">
+				<div class="rotate-left" data='shenjingru'>
+					shenjingru
+				</div>
+			</div>
+			<div class="demo8">
+				<div class="rotate-right" data='shenjingru'>
+					shenjingru
+				</div>
+			</div>
+			<div class="demo9">
+				<div class="rotate" data='shenjingru'>
+					shenjingru
+				</div>
+			</div>
+		</div>
+		<div class="forth">
+	    <div class="showcard">
+        <div class="card1 back"></div>
+        <div class="card1 front"></div>
+	    </div>
+		</div>
+		<div class="fifth" style="margin: 150px auto">
+	    <div class="stage">
+	        <div class="square">
+	            <div class="surface"></div>
+	            <div class="surface"></div>
+	            <div class="surface"></div>
+	            <div class="surface"></div>
+	            <div class="surface"></div>
+	            <div class="surface"></div>
+	        </div>
+	    </div>
+		</div>
+		<div class="sixth">
+	    <section class="site-container">
+	        <section class="card">
+	            <h3>Login</h3>
+	            <form>
+	                <div class="form__wrapper" data-wow-delay="0.5s">
+	                    <input type="email" class="form__input" id="email" name="email">
+	                    <label class="form__label" for="email">
+	                        <span class="form__label__content">Email</span>
+	                        <div class="form__filled"></div>
+	                    </label>
+	                </div>
+	                <div class="form__wrapper" data-wow-delay="0.6s">
+	                    <input type="password" class="form__input" id="password" name="password">
+	                    <label class="form__label" for="password">
+	                        <span class="form__label__content">Password</span>
+	                        <div class="form__filled"></div>
+	                    </label>
+	                </div>
+	                <div class="form__wrapper__submit pulse infinite" data-wow-delay="0.7s">
+	                    <div class="form__input__submit">
+	                        <button type="submit" name="submit" class="btn">Submit</button>
+	                    </div>
+	                </div>
+	            </form>
+	        </section>
+	    </section>
+		</div>
+	</div>
+	<script src="./index_files/jquery-1.10.2.min_65682a2.js"></script>
+    <script>
+    $.fn.extend({
+            animateCss: function (animationName, callback) {
+                var animationEnd = (function (el) {
+                    var animations = {
+                        animation: 'animationend',
+                        OAnimation: 'oAnimationEnd',
+                        MozAnimation: 'mozAnimationEnd',
+                        WebkitAnimation: 'webkitAnimationEnd',
+                    };
+
+                    for (var t in animations) {
+                        if (el.style[t] !== undefined) {
+                            return animations[t];
+                        }
+                    }
+                })(document.createElement('div'));
+
+                this.addClass('animated ' + animationName).one(animationEnd, function () {
+            
+                    $(this).removeClass('animated ' + animationName);
+
+                    if (typeof callback === 'function') callback();
+                });
+
+                return this;
+            },
+        });
+    $(function () {
+        $('.form__input').focus(function () {
+            if (!$(this).val()) {
+                $(this).addClass('form__input__focus').parent().find('.form__label__content').animateCss('slideInUp');
+            }
+            $(this).parent().find('.form__filled').toggle();
+            $(this).parent().find('.form__filled').animateCss('slideInLeft');
+            $('button[type=submit]').removeClass('animated bounceIn');
+        })
+        $('.form__input').blur(function () {
+            if (!$(this).val()) {
+                $(this).removeClass('form__input__focus')
+            }
+            let _t = this;
+            $(this).parent().find('.form__filled').animateCss('slideOutLeft', function () {
+                $(_t).parent().find('.form__filled').toggle();
+            });
+            if (!Array.from($('.form__input')).some((v) => !v.value)) {
+                $('button[type=submit]').animateCss('bounceIn');
+            }
+        })
+    })
+</script>
+</body>
+</html>
