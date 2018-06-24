@@ -5,6 +5,7 @@
 	<title>Document</title>
   <link rel="stylesheet" href="./index_files/animate.css">
   <link rel="stylesheet" href="./index_files/re-animate.css">
+  <link rel="stylesheet" href='./css/main.css'>
 	<style>
 		* {
 			margin: 0;
@@ -25,12 +26,9 @@
 			color: #fff;
 			text-decoration: none;
 		}
-		.container {
-			min-width: 960px;
-			margin: 0 auto;
-		}
-		.contanier > div {
+		.main-box > div {
 			display: flex;
+			flex-wrap: wrap;
 			justify-content: space-around;
 			margin-bottom: 50px;
 		}
@@ -38,19 +36,20 @@
 			position: absolute;
 			background: #2c3f52;
 			color: #ed4e6e;
-			padding: 20px;
+			padding: 1.25em;
 		}
 		.desc a {
 			background: #ed4e6e;
-			border-radius: 2px;
+			border-radius: 0.1em;
 			display: inline-block;
-			padding: 5px 10px;
+			padding: 0.3em 0.625em;
 			text-align: center;
 		}
 		.demo1, .demo2, .demo3 {
 			display: inline-block;
-			width: 400px;
+			min-width: 400px;
 			position: relative;
+			margin-bottom: 50px;
 		}
 		.demo1 img, .demo2 img, .demo3 img {
 			max-width: 100%;
@@ -137,8 +136,8 @@
 
 		/*-----------demo4----------------*/
 		.circle {
-			width: 15em;
-			height: 15em;
+			min-width: 15em;
+			min-height: 15em;
 			border-radius: 100%;
 			background: #fff;
 			position: relative;
@@ -177,6 +176,9 @@
 			transform: rotateX(-90deg);
 			cursor: pointer;
 			transition: all .5s;
+		}
+		.demo5, .demo6, .demo6, .demo7, .demo8 {
+			margin-bottom: 20px;
 		}
 		/*-----------demo5----------------*/
 		.rotate-up, .rotate-down {
@@ -522,7 +524,7 @@
 	</style>
 </head>
 <body>
-	<div class="contanier">
+	<div class="container main-box">
 		<div class="first">
 			<div class="demo1">
 				<img src="images/1.png">

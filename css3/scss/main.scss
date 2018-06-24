@@ -1,0 +1,92 @@
+html {
+	box-sizing: border-box
+}
+*,
+*:after,
+*:before {
+	box-sizing: border-box
+}
+$grid-breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+$grid-columns: 12;
+$grid-gutter-width: 20px;
+
+
+@mixin make-row() {
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: ($grid-gutter-width / -2);
+	margin-left: ($grid-gutter-width / -2);
+}
+@mixin make-container() {
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: ($grid-gutter-width / 2);
+	padding-left: ($grid-gutter-width / 2);
+	width: 100%;
+}
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+	$min: map-get($breakpoints, $name);
+	@media (min-width: $min) {
+		@content
+	}
+}
+@mixin make-container-max-widths($max-widths: $container-max-widths, $breakpoints: $grid-breakpoints) {
+	@each $breakpoint,$container-max-width in $max-widths {
+		@include media-breakpoint-up($breakpoint, $breakpoints) {
+			max-width: $container-max-width;
+		}
+	}
+}
+.container {
+	@include make-container();
+	@include make-container-max-widths();
+}
+.row {
+	@include make-row()
+}
+
+@function percentage($per) {
+	@return $per * 100%;
+}
+@mixin make-col($size, $columns: $grid-columns) {
+	flex: 0 0 percentage($size / $columns);
+	max-width: percentage($size / $columns);
+}
+@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+	%grid-column {
+    position: relative;
+    width: 100%;
+    min-height: 1px; // Prevent columns from collapsing when empty
+    padding-right: ($gutter / 2);
+    padding-left:  ($gutter / 2);
+  }
+
+  @each $breakpoint in map-keys($breakpoints) {
+  	$infix: "-#{$breakpoint}";
+  	@for $i from 1 through $columns {
+  		.col#{$infix}-#{$i} {
+  			@extend %grid-column;
+  		}
+	  }
+
+		@include media-breakpoint-up($breakpoint, $breakpoints) {
+			@for $i from 1 through $columns {
+				.col#{$infix}-#{$i} {
+	  			@include make-col($i, $columns);
+	  		}
+			}
+		}
+	}
+}
+@include make-grid-columns()
